@@ -18,28 +18,28 @@ public class Q38_boj1456 {
         long max = Long.parseLong(st.nextToken());
 
         // 10의 14승의 절반이 10의7승. 해당숫자만큼을 숫자 구역으로 범위를 획정
-        long [] A = new long[10000001];
-        for(int i=2; i<A.length; i++){
+        long[] A = new long[10000001];
+        for (int i = 2; i < A.length; i++) {
             A[i] = i;
         }
-        for(int i = 2; i<Math.sqrt(A.length); i++){
-            if(A[i]==0){
+        for (int i = 2; i < Math.sqrt(A.length); i++) {
+            if (A[i] == 0) {
                 continue;
             }
-            for(int j= i+i; j<A.length; j+=i){
+            for (int j = i + i; j < A.length; j += i) {
                 A[j] = 0;
             }
         }
 
         int cnt = 0;
-        for(int i= 2; i<A.length; i++){
-            if(A[i] !=0){
+        for (int i = 2; i < A.length; i++) {
+            if (A[i] != 0) {
                 long temp = A[i];
-                while ((double)A[i]<= (double) max/(double) temp){
-                    if((double)A[i]>=(double) min/(double) temp){
+                while ((double) A[i] <= (double) max / (double) temp) {
+                    if ((double) A[i] >= (double) min / (double) temp) {
                         cnt++;
                     }
-                    temp = temp*A[i];
+                    temp = temp * A[i];
                 }
             }
         }
