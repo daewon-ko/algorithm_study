@@ -1,17 +1,17 @@
+package do_it_algorithm;
 import java.util.*;
 import java.io.*;
 
-
-// 39번
-public class Main {
-    public static void main(String[] args) throws IOException {
+public class Q43_boj1850 {
+    public static void main(String[] args) throws IOException{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         StringTokenizer st = new StringTokenizer(br.readLine());
-        long a = Integer.parseInt(st.nextToken());
-        long b = Integer.parseInt(st.nextToken());
+
+        long a = Long.parseLong(st.nextToken());
+        long b = Long.parseLong(st.nextToken());
         long result = gcd(a,b);
-        while(result>0){
+        while (result>0){
             bw.write("1");
             result--;
         }
