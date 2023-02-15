@@ -37,7 +37,7 @@ public class Q39_boj1747 {
         }
 
         // A 배열 소수만들기
-        for (int i = 2; i < Math.sqrt(A.length); i++) {
+        for (int i = 2; i <=Math.sqrt(A.length); i++) {
             if (A[i] == 0) {
                 continue;
             }
@@ -46,19 +46,7 @@ public class Q39_boj1747 {
             }
         }
 
-//        int i = n;
-//        while (true){
-//            if(A[i]!=0){
-//                if(pelendrom(A[i])){
-//                    System.out.println(A[i]);
-//                    break;
-//                }
-//            }
-//            i++;
-//        }
 
-
-        // 내가 푼 풀이 왜 답이 안 나오지?
 
         for (int i = n; i < A.length; i++) {
             // A의 배열 중 소수인 것만 check
