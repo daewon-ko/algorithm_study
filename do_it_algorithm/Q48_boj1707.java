@@ -51,6 +51,7 @@ public class Q48_boj1707 {
     private static boolean BFS(int node, int color) {
         Queue<Integer> queue = new LinkedList<>();
         queue.offer(node);
+        // node의 컬러를 초기화하는 것을 잊지말 것!
         colors[node] = color;
         while (!queue.isEmpty()) {
             int now_node = queue.poll();
