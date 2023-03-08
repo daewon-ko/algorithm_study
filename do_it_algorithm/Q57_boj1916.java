@@ -21,7 +21,7 @@ public class Q57_boj1916 {
 
         list = new ArrayList<>();
         dis = new int[n+1];
-        check = new boolean[n+1];
+//        check = new boolean[n+1];
 
         Arrays.fill(dis,Integer.MAX_VALUE);
 

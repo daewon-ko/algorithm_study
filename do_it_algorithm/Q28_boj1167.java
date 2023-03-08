@@ -69,6 +69,7 @@ public class Q28_boj1167 {
 }
 
 class Node {
+    public int weight;
     int e;
     int value;
 
