@@ -1,19 +1,40 @@
-import java.util.*;
-import java.io.*;
-
 public class Main {
 
+    public static void main(String[] args) {
+        Apple apple = new Apple();
+        Samsung samsung = new Samsung();
+        apple.buyAndOperateCellPhone("잡th");
+        System.out.println();
+        samsung.buyAndOperateCellPhone("거늬");
+    }
 
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int n = Integer.parseInt(br.readLine());
-        long mod = 1000000000;
-        long d[] = new long[1000001];
-        d[1] = 0;
-        d[2] = 2;
-        for (int i = 3; i <= n; i++) {
-            d[i] = (i - 1)* (d[i - 1] + d[i - 2]) / mod;
-        }
-        System.out.println(d[n]);
+
+
+}
+
+interface cellPhone {
+    void buyAndOperateCellPhone(String name);
+}
+
+class Apple implements cellPhone {
+
+    @Override
+    public void buyAndOperateCellPhone(String name) {
+        System.out.println(name + "님이 사과폰을 샀습니다.");
+        System.out.println(name + "님이 사과폰을 켰습니다.");
+        System.out.println("*** 폰 켜지는 중 *** ");
     }
 }
+
+class Samsung implements cellPhone {
+
+    @Override
+    public void buyAndOperateCellPhone(String name) {
+        System.out.println(name + "님이 삼송폰을 샀습니다.");
+        System.out.println(name + "님이 삼송폰을 켰습니다.");
+        System.out.println("@@@ 폰 켜지는 중 @@@ ");
+
+    }
+}
+
+
