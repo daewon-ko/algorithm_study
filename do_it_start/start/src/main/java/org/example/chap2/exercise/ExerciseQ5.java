@@ -1,0 +1,2 @@
+package org.example.chap2.exercise;public class Q5 {
+}
