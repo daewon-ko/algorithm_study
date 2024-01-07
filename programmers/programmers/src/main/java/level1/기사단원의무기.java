@@ -31,30 +31,22 @@ public class 기사단원의무기 {
      */
     public int solution(int number, int limit, int power) {
 
-        List<Integer> list = new ArrayList<>();
-        for (int count = 1; count <=number; count++) {
-            list.add(getMadeDivisor(count));
-        }
+        int answer = getMadeDivisor(number, power, limit);
 
-        int[] array = IntStream.range(0, list.size())
-                .filter(i -> list.get(i) > limit)
-                .map(i -> list.set(i, power))
-                .toArray();
-
-        int sum = 0;
-        for (Integer i : list) {
-            sum += i;
-        }
-        return sum;
+        return answer;
 
     }
 
-    private int getMadeDivisor(final int number) {
+    private int getMadeDivisor(final int number, final int power, final int limit) {
+        int answer = IntStream.rangeClosed(0, number)
+                .map(i -> {
+                    int cnt = IntStream.rangeClosed(1, (int) Math.sqrt(i))
+                            .map(
+                                    j -> (j * j == i) ? 1 : (i % j == 0) ? 2 : 0).sum();
 
-        long count = IntStream.rangeClosed(1, number)
-                .filter(i -> number % i == 0)
-                .count();
+                    return cnt > limit ? power : cnt;
+                }).sum();
+        return answer;
 
-        return (int) count;
     }
 }
