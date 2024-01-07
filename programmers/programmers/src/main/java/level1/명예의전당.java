@@ -1,18 +1,14 @@
 package level1;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.IntStream;
 
 public class 명예의전당 {
-    /**
-     * 비교대상의 문제 어떻게 처리해야할까?
-     * 이전 인덱스와 현재 인덱스를 비교하는게 아니라,
-     * Full Scan 하듯이 해야하는데?
-     * @param k
-     * @param score
-     * @return
-     */
+
+
     public int[] solution(int k, int[] score) {
         int[] answer = new int[score.length];
 
@@ -26,6 +22,7 @@ public class 명예의전당 {
             answer[i] = Collections.min(hallOfFame);
         }
         return answer;
+
 
 //        int[] hallOfFame = new int[k];
 //        for (int i = 0; i < score.length; i++) {
