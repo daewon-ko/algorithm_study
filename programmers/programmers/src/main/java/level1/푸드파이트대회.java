@@ -46,4 +46,17 @@ public class 푸드파이트대회 {
         return sb.toString();
     }
 
+    // 신박한 풀이 참조
+    // 신박하기보단 직관적 풀이?
+
+    public String solution2(int[] food) {
+        String answer = "0";
+        for (int i = food.length - 1; i > 0; i--) {
+            for (int j = 0; j < food[i] / 2; j++) {
+                answer = i + answer + i;
+            }
+        }
+        return answer;
+    }
+
 }
