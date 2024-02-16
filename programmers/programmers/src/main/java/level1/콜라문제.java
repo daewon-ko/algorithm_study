@@ -114,4 +114,21 @@ public class 콜라문제 {
 
         return answer;
     }
+
+    /**
+     * 다른분 풀이
+     *
+     * 직관적이고 깔끔하다.
+     */
+
+    public int solution(int a, int b, int n) {
+        int answer = 0;
+
+        while (n >= a) {
+            answer += b * (n / a);
+            n = b * (n / a) + n % a;
+        }
+
+        return answer;
+    }
 }
