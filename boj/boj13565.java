@@ -5,60 +5,70 @@ import java.util.*;
 
 //boj 13565 침투
 public class boj13565 {
-
-    static int n,m;
-    static int MAX = 1000+10;
-    static boolean [][] visited;
-    static boolean [][] map;
-
-    static int dirY[] = {-1, 1, 0, 0};
-    static int dirX[] = {0, 0, -1, 1};
+    static int n, m;
+    static final int MAX = 1000 + 10;
+    static boolean[][] graph;
+    static boolean[][] visited;
+    static int[] dx = {1, 0, -1, 0};
+    static int[] dy = {0, -1, 0, 1};
     static boolean answer;
 
     public static void dfs(int y, int x) {
-        if (y == n) {
+
+        if (y == m) {
             answer = true;
             return;
         }
+
+
         visited[y][x] = true;
         for (int i = 0; i < 4; i++) {
-            int newY = y + dirY[i];
-            int newX = x + dirX[i];
-            if (!map[newY][newX] && visited[newY][newX]) {
-                dfs(newY, newX);
+            int nx = x + dx[i];
+            int ny = y + dy[i];
+            if (graph[ny][nx] && !visited[ny][nx]) {
+                dfs(ny, nx);
             }
         }
+
 
     }
-    public static void main(String[] args) throws IOException{
+
+    public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+
         StringTokenizer st = new StringTokenizer(br.readLine());
-        n = Integer.parseInt(st.nextToken());
         m = Integer.parseInt(st.nextToken());
+        n = Integer.parseInt(st.nextToken());
 
-
-        map = new boolean[MAX][MAX];
+        graph = new boolean[MAX][MAX];
         visited = new boolean[MAX][MAX];
-        // map 정보 반영
-        for (int i = 1; i <= n; i++) {
-            String str = br.readLine();
+
+        for (int i = 1; i <= m; i++) {
+            String line = br.readLine();
             for (int j = 1; j <= n; j++) {
-                map[i][j] = (str.charAt(j - 1) == 0) ? true : false;
+                // 0 -> true, 1 -> false로 역으로 초기화
+                // 즉, 전류가 잘 통하는 흰색은 true, 안 통하는 검은색은 false로 변경
+                graph[i][j] = line.charAt(j - 1) == '0';
             }
         }
 
-        // dfs 수행
-        for (int j = 1; j <= m; j++) {
-            if (map[1][j]) {
-                dfs(1, j);
+        for (int i = 1; i <= n; i++) {
+            if (graph[1][i]) {
+                dfs(1, i);
             }
         }
 
-        if(answer) bw.write("YES");
-        else bw.write("NO");
+        if (answer) {
+            bw.write("YES");
+        } else {
+            bw.write("NO");
+        }
 
         bw.close();
         br.close();
+
+
     }
+
 }
