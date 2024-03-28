@@ -1,4 +1,5 @@
 package boj;
+
 import java.util.*;
 import java.io.*;
 
@@ -6,22 +7,21 @@ import java.io.*;
 public class boj1012 {
     static int M, N, K;
     static int[][] cabbage;
-    static boolean[][] visit;
+    //    static boolean[][] visit;
+    static int MAX = 50 + 10;
     static int count;
-    static int[] dx = { 0, -1, 0, 1 };
-    static int[] dy = { 1, 0, -1, 0 };
+    static int[] dx = {0, -1, 0, 1};
+    static int[] dy = {1, 0, -1, 0};
 
     static void dfs(int x, int y) {
-        visit[x][y] = true;
+        cabbage[x][y] = 0;
 
         for (int i = 0; i < 4; i++) {
             int cx = x + dx[i];
             int cy = y + dy[i];
 
-            if (cx >= 0 && cy >= 0 && cx < M && cy < N) {
-                if (!visit[cx][cy] && cabbage[cx][cy] == 1) {
-                    dfs(cx, cy);
-                }
+            if (cabbage[cx][cy] == 1) {
+                dfs(cx, cy);
             }
 
         }
@@ -38,20 +38,20 @@ public class boj1012 {
             StringTokenizer st = new StringTokenizer(br.readLine(), " ");
             M = Integer.parseInt(st.nextToken());
             N = Integer.parseInt(st.nextToken());
-            cabbage = new int[M][N];
-            visit = new boolean[M][N];
+            cabbage = new int[MAX][MAX];
 
             K = Integer.parseInt(st.nextToken());
+
             for (int j = 0; j < K; j++) {
                 st = new StringTokenizer(br.readLine(), " ");
                 int p1 = Integer.parseInt(st.nextToken());
                 int p2 = Integer.parseInt(st.nextToken());
-                cabbage[p1][p2] = 1;
+                cabbage[p2 + 1][p1 + 1] = 1;
             }
 
-            for (int x = 0; x < M; x++) {
-                for (int y = 0; y < N; y++) {
-                    if (cabbage[x][y] == 1 && !visit[x][y]) {
+            for (int x = 1; x <= N; x++) {
+                for (int y = 1; y <= M; y++) {
+                    if (cabbage[x][y] == 1) {
                         dfs(x, y);
                         count++;
                     }
