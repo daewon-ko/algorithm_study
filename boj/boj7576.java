@@ -37,7 +37,7 @@ public class boj7576 {
     static int[][] graph;
     static boolean[][] visited;
     static Queue<Tomato> queue = new LinkedList<>();
-    static int[] dx = {1, 0, -1, 0};
+    static int[] dx = {1, 0, -1, 1};
     static int[] dy = {0, -1, 0, 1};
 
     static class Tomato {
@@ -68,7 +68,6 @@ public class boj7576 {
                 graph[i][j] = Integer.parseInt(st.nextToken());
                 if (graph[i][j] == 1) {
                     queue.offer(new Tomato(i, j, 0));
-                    visited[i][j] = true;
                 }
             }
         }
@@ -86,7 +85,7 @@ public class boj7576 {
     private static boolean checkVisitedMap() {
         for (int i = 1; i <= n; i++) {
             for (int j = 1; j <= m; j++) {
-                if (graph[i][j] == 0 && !visited[i][j]) {
+                if (graph[i][j] == 0) {
                     return false;
                 }
             }
