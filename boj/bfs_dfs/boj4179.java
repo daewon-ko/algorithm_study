@@ -1,4 +1,4 @@
-package boj;
+package boj.bfs_dfs;
 
 import java.io.BufferedReader;
 import java.io.IOException;
