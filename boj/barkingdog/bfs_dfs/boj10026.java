@@ -1,4 +1,4 @@
-package boj.bfs_dfs;
+package boj.barkingdog.bfs_dfs;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -121,7 +121,7 @@ public class boj10026 {
 
                         char charNew = graph[newY][newX];
                         char charBefore = graph[pollY][pollX];
-                        if (!visited[newY][newX] && noDistinguish(charNew, charBefore) && isRange(newY, newX)) {
+                        if (!visited[newY][newX] && noDistinguish(charNew, charBefore) && isRange(newY, newX) || (charNew == charBefore)) {
                             queue.offer(new Color(newY, newX));
                             visited[newY][newX] = true;
                         }
