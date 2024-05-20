@@ -14,6 +14,11 @@ import java.util.StringTokenizer;
  * 2. 최솟값이므로 bfs로 접근한다.
  * 3. 좌표쌍의 범위는 0<= <= l-1까지이다.
  * 4. 각 테스트케이스마다 결과값을 출력해야한다.
+ *
+ * 범위 검증 -> Queue에 넣기때문에 MAX 값은 의미가 없다.
+ * (왜냐하면 이차원 배열의 그래프를 형성하지 않기때문에)
+ *
+ * -> 따라서 MAX값으로 범위를 설정하면 반드시 오류가 발생한다.
  */
 public class boj7562 {
     static final int MAX = 300 + 10;
@@ -65,6 +70,8 @@ public class boj7562 {
 
         }
 
+        br.close();
+
 
     }
 
@@ -104,6 +111,6 @@ public class boj7562 {
     }
 
     public static boolean isRange(int y, int x) {
-        return y >= 1 && y < MAX && x >= 1 && x < MAX;
+        return y >= 1 && y <= l && x >= 1 && x <=l;
     }
 }
