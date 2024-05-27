@@ -1,4 +1,4 @@
-package boj;
+package boj.barkingdog.bfs_dfs;
 
 import java.util.*;
 import java.io.*;

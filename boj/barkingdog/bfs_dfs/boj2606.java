@@ -1,4 +1,4 @@
-package boj;
+package boj.barkingdog.bfs_dfs;
 
 //백준2606번 바이러스
 

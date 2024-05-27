@@ -25,7 +25,8 @@ import java.util.StringTokenizer;
 public class boj2206 {
     static int n, m;
     static int[][] graph;
-    static boolean[][] visited;
+    // 0 -> 벽을 부수지 않은 경우, 1 -> 벽을 부순 경우
+    static boolean[][][] visited;
     static final int MAX = 1000 + 10;
 //    static Queue<Pair> queue = new LinkedList<>();
 
@@ -34,13 +35,13 @@ public class boj2206 {
 
     // 초기 0으로 시작하고 1이 되면
 
-    static class Pair {
+    static class Node {
         int y;
         int x;
         int distance;
         int destroyCnt;
 
-        public Pair(final int y, final int x, final int distance, final int destroyCnt) {
+        public Node(final int y, final int x, final int distance, final int destroyCnt) {
             this.y = y;
             this.x = x;
             this.distance = distance;
@@ -55,7 +56,7 @@ public class boj2206 {
         m = Integer.parseInt(st.nextToken());
 
         graph = new int[MAX][MAX];
-        visited = new boolean[MAX][MAX];
+        visited = new boolean[MAX][MAX][2];
 
         for (int i = 1; i <= n; i++) {
             String line = br.readLine();
@@ -72,64 +73,74 @@ public class boj2206 {
     }
 
     public static int bfs(int y, int x) {
-        Queue<Pair> queue = new LinkedList<>();
-        // 초기 좌표 역시 1을 카운트 하고 벽을 부슨 cnt를 0으로 초기화한다.
-        queue.offer(new Pair(y, x, 1, 0));
-        visited[y][x] = true;
+        Queue<Node> queue = new LinkedList<>();
+        // 초기 좌표 역시 1을 카운트 하고 벽을 부순 경우는 0으로 초기화한다.
+        queue.offer(new Node(y, x, 1, 0));
+        // 벽을 부수지 않았으므로 배열의 마지막 인덱스 0(벽을 부수지 않은 경우) 을 방문표시한다.
+        visited[y][x][0] = true;
 
         while (!queue.isEmpty()) {
-            Pair poll = queue.poll();
-            int pollY = poll.y;
-            int pollX = poll.x;
-            int pollDestroyCnt = poll.destroyCnt;
-            int pollDistance = poll.distance;
-            int DESTROY_WALL_CNT = 0;
+            Node node = queue.poll();
+            int pollY = node.y;
+            int pollX = node.x;
+            int pollDestroyCnt = node.destroyCnt;
+            int pollDistance = node.distance;
+
+            if (pollY == n && pollX == m) {
+                return node.distance;
+            }
+
 
             for (int i = 0; i < 4; i++) {
                 int newY = pollY + dy[i];
                 int newX = pollX + dx[i];
 
-                if (newY == n && newX == m) {
-                    return poll.distance + 1;
-                }
 
+                // newY, newX가 range 내에 없으면 패스한다.
+//                if (!isRange(newY, newX)) {
+//                    continue;
+//                }
 
                 // Pair객체가 bfs를 수행할때 상하좌우 확인시에, 이미 벽을 부섰고 graph[newY][newX] ==1이라면 스킵한다.
-                if (DESTROY_WALL_CNT == 1 && graph[newY][newX] == 1) {
-                    continue;
-                }
+//                if (pollDestroyCnt == 1 && graph[newY][newX] == 1) {
+//                    continue;
+//                }
 
                 // 벽을 부수지 않는 경우
-                if (isRange(newY, newX) && graph[newY][newX] == 0 && !visited[newY][newX]) {
-                    queue.offer(new Pair(newY, newX, pollDistance + 1, pollDestroyCnt));
-                    visited[newY][newX] = true;
+                if (isRange(newY, newX) && graph[newY][newX] == 0 && !visited[newY][newX][pollDestroyCnt]) {
+                    queue.offer(new Node(newY, newX, pollDistance + 1, pollDestroyCnt));
+                    visited[newY][newX][0] = true;
 
-                } else if (canMoveAroundWall(newY, newX, pollDestroyCnt, DESTROY_WALL_CNT)) {
-                    queue.offer(new Pair(newY, newX, pollDistance + 1, pollDestroyCnt + 1));
-                    visited[newY][newX] = true;
+                }
+
+                // 벽을 부수는 경우
+                if (canMoveAroundWall(newY, newX, pollDestroyCnt) && isRange(newY, newX) && !visited[newY][newX][1]) {
+                    queue.offer(new Node(newY, newX, pollDistance + 1,  1));
+                    visited[newY][newX][1] = true;
 //                    graph[newY][newX] = 0;
                 }
             }
 
-            DESTROY_WALL_CNT = 0;
+//            DESTROY_WALL_CNT = 0;
         }
 
 
-        // 도둘하지 않는 경우
+        // 도착하지 않는 경우
         return -1;
 
     }
 
+    // TODO : 범위가 MAX까지이면 왜 안되지? MAX가 안된다면 MAX를 굳이 만들 필요또한 없어진다.
     public static boolean isRange(int y, int x) {
-        return y >= 1 && y <=n && x >= 1 && x <=m;
+        return y >= 1 && y < n && x >= 1 && x < m;
     }
 
-    public static boolean canMoveAroundWall(int newY, int newX, int destroyCnt, int DESTROY_WALL_CNT) {
+    public static boolean canMoveAroundWall(int newY, int newX, int destroyCnt) {
         int result = graph[newY][newX];
         if (destroyCnt == 0 && result == 1) {
             // 자기 좌표에서 벽에 가로막혀있으면 벽을 부수는 것을 수행.
             // 전역변수(static)변수로 벽을 부순 횟수를 설정해준다.
-            DESTROY_WALL_CNT++;
+//            DESTROY_WALL_CNT++;
             return true;
         }
         return false;
