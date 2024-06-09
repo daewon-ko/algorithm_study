@@ -49,10 +49,35 @@ public class boj2606 {
             graph[y][x] = true;
         }
 
-        dfs(1);
-        bw.write(String.valueOf(answer - 1));
+//        dfs(1);
+        bfs(1);
+        bw.write(String.valueOf(answer -1));
 
         bw.close();
         br.close();
     }
+
+    public static void bfs(int index) {
+
+        visited[index] = true;
+        Queue<Integer> queue = new LinkedList<>();
+        queue.offer(index);
+        answer++;
+
+
+        while (!queue.isEmpty()) {
+            //poll과 index는 같은 의미?
+            Integer poll = queue.poll();
+            for (int i = 1; i <= n; i++) {
+
+                if (!visited[i] && graph[poll][i]) {
+                    queue.offer(i);
+                    visited[i] = true;
+                    answer++;
+                }
+            }
+        }
+
+    }
+
 }
