@@ -6,47 +6,60 @@ import java.util.*;
 
 // 백준 13549
 public class boj13549 {
+    static int n,k;
+    static final int MAX = 100000 + 10;
+
+    static boolean [] visited;
     static int min = Integer.MAX_VALUE;
-    static int n, k;
-    static boolean[] visited;
-    static int max = 10000 + 10;
 
-    public static void main(String[] args) {
-        Scanner scan = new Scanner(System.in);
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        n = Integer.parseInt(st.nextToken());
+        k = Integer.parseInt(st.nextToken());
 
-        n = scan.nextInt();
-        k = scan.nextInt();
+        visited = new boolean[MAX];
 
-        visited = new boolean[max];
         bfs();
         System.out.println(min);
+
+
+
 
     }
 
     public static void bfs() {
-        Queue<Node> q = new LinkedList<>();
-        q.offer(new Node(n, 0));
+        Queue<Node> queue = new LinkedList<>();
+        queue.offer(new Node(n, 0));
 
-        while (!q.isEmpty()) {
-            Node node = q.poll();
-            visited[node.x] = true;
-            if (node.x == k) min = Math.min(min, node.time);
+        while (!queue.isEmpty()) {
+            Node poll = queue.poll();
+            int pollX = poll.x;
+            visited[pollX] = true;
 
-            if (node.x * 2 <= max && visited[node.x * 2] == false) q.offer(new Node(node.x * 2, node.time));
-            if (node.x + 1 <= max && visited[node.x + 1] == false) q.offer(new Node(node.x + 1, node.time + 1));
-            if (node.x - 1 >= 0 && visited[node.x - 1] == false) q.offer(new Node(node.x - 1, node.time + 1));
+            if (pollX == k) {
+                min = Math.min(min, poll.time);
+            }
+
+            if((pollX*2) <MAX && !visited[pollX*2])
+                queue.offer(new Node(pollX * 2, poll.time));
+            if((pollX+1)<MAX && !visited[pollX+1])
+                queue.offer(new Node(pollX + 1, poll.time + 1));
+            if((pollX-1)>=0 && !visited[pollX-1])
+                queue.offer(new Node(pollX - 1, poll.time + 1));
         }
     }
 
-    public static class Node {
+    static class Node{
         int x;
         int time;
 
-        public Node(int x, int time) {
+        public Node(final int x, final int time) {
             this.x = x;
             this.time = time;
         }
     }
+
 
 
 }
