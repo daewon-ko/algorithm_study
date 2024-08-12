@@ -1,8 +1,29 @@
-package level1;
+package programmers.programmers.src.main.java.level1;
 
 
+import java.util.Arrays;
+import java.util.stream.IntStream;
 
 public class 카드뭉치 {
+    public String solution(String[] cards1, String[] cards2, String[] goal) {
+        int card1_index = 0;
+        int card2_index = 0;
+        String answer = "YES";
+
+        for(String word : goal){
+            if (card1_index < cards1.length && word.equals(cards1[card1_index])) {
+                card1_index++;
+            } else if (card2_index < cards2.length && word.equals(cards2[card2_index])) {
+                card2_index++;
+            }else{
+                answer = "NO";
+            }
+        }
+
+        return answer;
+
+
+    }
 
 }
     class Solution {
