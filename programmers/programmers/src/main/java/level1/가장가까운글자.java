@@ -1,4 +1,4 @@
-package level1;
+package programmers.programmers.src.main.java.level1;
 
 import java.util.HashMap;
 import java.util.Map;
