@@ -14,9 +14,9 @@ public class boj2580Ref {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         arr = new int[9][9];
-        for (int i = 1; i <= 9; i++) {
+        for (int i = 0; i < 9; i++) {
             StringTokenizer st = new StringTokenizer(br.readLine());
-            for(int j=1; j<=9; j++) {
+            for(int j=0; j<9; j++) {
                 arr[i][j] = Integer.parseInt(st.nextToken());
             }
         }
@@ -30,6 +30,13 @@ public class boj2580Ref {
         if (col == 9) {
             func(row + 1, 0);
             return;
+/**
+ * 왜 Return을 해줄까? return을 해주지 않으면 ArrayIndexOutOfBound에러가 발생한다.
+ *
+ * ->
+ *
+  */
+
         }
 
         // 행과 열이 모두 채워졌을 경우 출력 후 종료
@@ -55,7 +62,7 @@ public class boj2580Ref {
                     func(row, col + 1);
                 }
             }
-            arr[row][col] = 0;
+            arr[row][col] = 0;  // 왜 다시 0으로 초기화를 해야할까?
             return;
         }
 
