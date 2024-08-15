@@ -12,7 +12,7 @@ import java.util.StringTokenizer;
 public class boj3980 {
     static int c;
     static int[][] arr;
-    static boolean[][] visited;
+    static boolean[] visited;
     static int max;
 
     public static void main(String[] args) throws IOException {
@@ -24,7 +24,7 @@ public class boj3980 {
             max = Integer.MIN_VALUE;
 
             arr = new int[11][11];  // 11명의 축구선수
-            visited = new boolean[11][11];
+            visited = new boolean[11];
 
             // 그래프 초기화
             for (int i = 0; i < 11; i++) {
@@ -69,10 +69,10 @@ public class boj3980 {
         }
 
         for (int i = 0; i < 11; i++) {
-            if (arr[y][i] != 0 && !visited[y][i]) {
-                visited[y][i] = true;
+            if (arr[y][i] != 0 && !visited[i]) {
+                visited[i] = true;
                 func(y + 1, sum + arr[y][i]);
-                visited[y][i] = false;
+                visited[i] = false;
             }
         }
 
