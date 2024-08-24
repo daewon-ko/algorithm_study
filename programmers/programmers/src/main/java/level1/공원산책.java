@@ -181,4 +181,85 @@ public class 공원산책 {
     }
 
 
+    class Solution {
+        public int[] solution(String[] park, String[] routes) {
+            int ySize = park.length;
+            int xSize = park[0].length();  // xSize는 park의 첫 번째 행의 길이로 초기화
+
+            int startY = 0;
+            int startX = 0;
+
+            // 출발점(S) 찾기
+            for (int i = 0; i < ySize; i++) {
+                if (park[i].contains("S")) {
+                    startY = i;
+                    startX = park[i].indexOf('S');
+                    break;
+                }
+            }
+
+            for (String s : routes) {
+                String direction = s.split(" ")[0];
+                int num = Integer.parseInt(s.split(" ")[1]);
+
+                if (direction.equals("E")) {
+                    int newX = startX + num;
+                    if (newX < xSize) {  // newX < xSize로 수정
+                        boolean canMove = true;
+                        for (int i = startX + 1; i <= newX; i++) {  // startX + 1부터 newX까지 확인
+                            if (park[startY].charAt(i) == 'X') {
+                                canMove = false;
+                                break;
+                            }
+                        }
+                        if (canMove) startX = newX;
+                    }
+
+                } else if (direction.equals("W")) {
+                    int newX = startX - num;
+                    if (newX >= 0) {  // newX >= 0로 수정
+                        boolean canMove = true;
+                        for (int i = startX - 1; i >= newX; i--) {
+                            if (park[startY].charAt(i) == 'X') {
+                                canMove = false;
+                                break;
+                            }
+                        }
+                        if (canMove) startX = newX;
+                    }
+
+                } else if (direction.equals("S")) {
+                    int newY = startY + num;
+                    if (newY < ySize) {  // newY < ySize로 수정
+                        boolean canMove = true;
+                        for (int i = startY + 1; i <= newY; i++) {
+                            if (park[i].charAt(startX) == 'X') {
+                                canMove = false;
+                                break;
+                            }
+                        }
+                        if (canMove) startY = newY;
+                    }
+
+                } else if (direction.equals("N")) {
+                    int newY = startY - num;
+                    if (newY >= 0) {  // newY >= 0로 수정
+                        boolean canMove = true;
+                        for (int i = startY - 1; i >= newY; i--) {
+                            if (park[i].charAt(startX) == 'X') {
+                                canMove = false;
+                                break;
+                            }
+                        }
+                        if (canMove) startY = newY;
+                    }
+                }
+            }
+
+            return new int[]{startY, startX};
+        }
+    }
+
+
+
 }
