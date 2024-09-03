@@ -3,6 +3,7 @@ package boj.bruteforce;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.ArrayList;
@@ -60,5 +61,41 @@ public class boj2309 {
         for (Integer i : list) {
             System.out.println(i);
         }
+    }
+}
+
+class boj2309_ref{
+    static int[] n = new int[9];
+    static int sum = 0;
+    static int fake1, fake2 = 0;
+
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        for (int i = 0; i < 9; i++) {
+            n[i] = Integer.parseInt(br.readLine());
+            sum += n[i];
+
+        }
+
+
+        for (int i = 0; i < n.length; i++) {
+            for (int j = i + 1; j < n.length; j++) {
+                if (sum - n[i] - n[j] == 100) { // 순서가 상관 없기에 즉. 아무거나 나오면 되기에 가능한 조건
+                    fake1 = n[i];
+                    fake2 = n[j];
+                }
+            }
+        }
+
+        Arrays.sort(n);
+
+        for (int i = 0; i < n.length; i++) {
+            if (n[i] != fake1 && n[i] != fake2) {
+                System.out.println(n[i]);
+            }
+
+        }
+
     }
 }
