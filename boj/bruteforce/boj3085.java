@@ -8,12 +8,23 @@ import java.io.InputStreamReader;
  * 백준 사탕게임
  */
 public class boj3085 {
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
     static char[][] arr;
     static int n;
     static boolean[][] visited;
     static final int MAX = 50 + 1;
     static int[] dx = new int[]{1, 0, -1, 0};
     static int[] dy = new int[]{0, -1, 0, 1};
+<<<<<<< Updated upstream
+=======
+
+    static int cnt = 0;
+    static int answer = Integer.MIN_VALUE; // 최댓값이 될 예정이기에 최솟값으로 지정
+
+>>>>>>> Stashed changes
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         n = Integer.parseInt(br.readLine());
@@ -31,6 +42,7 @@ public class boj3085 {
         for (int i = 1; i <= n; i++) {
             for (int j = 1; j <= n; j++) {
                 if (!visited[i][j]) {
+<<<<<<< Updated upstream
                     dfs(i, j);
                 }
             }
@@ -92,15 +104,40 @@ class boj3085Ref{
                 dfs(i, j);
             }
         }
+=======
+                    cnt = 0;
+                    dfs(i, j);
+                    cnt = 0; //cnt 재초기화
+                }
+            }
+        }
+>>>>>>> Stashed changes
 
         System.out.println(answer);
     }
 
     public static void dfs(int y, int x) {
+<<<<<<< Updated upstream
+=======
+
+        // 이미 방문했거나 배열의 범위를 벗어난 경우 종료
+        if (!inRange(y, x) || visited[y][x]) {
+            return;
+        }
+
+        visited[y][x] = true;
+        cnt++;
+
+        answer = Math.max(answer, cnt);
+
+
+        // 상,하,좌,우에 다른색이 있는지 판별
+>>>>>>> Stashed changes
         for (int i = 0; i < 4; i++) {
             int newX = x + dx[i];
             int newY = y + dy[i];
 
+<<<<<<< Updated upstream
             if (!inRange(newY, newX)) {
                 continue;
             }
@@ -152,4 +189,58 @@ class boj3085Ref{
 
         return y >= 0 && y < n && x >= 0 && x < n;
     }
+=======
+            // 이동한 좌표의 색이 현재 좌표의 색과 같으면 스킵
+            if (!inRange(newY, newX) || arr[newY][newX] == arr[y][x]) {
+                continue;
+            }
+
+            // 색이 다를경우 좌표를 변경한다.
+
+            if (arr[newY][newX] != arr[y][x]) {
+                char temp = arr[y][x];
+                arr[y][x] = arr[newY][newX];
+                arr[newY][newX] = temp;
+
+                // 변경 후 DFS 호출
+                dfs(newY, newX);
+
+//                visited[newY][newX] = false;
+
+                // 원상복구
+                arr[newY][newX] = arr[y][x];
+                arr[y][x] = temp;
+            }
+
+
+//            char currentC = arr[y][x];
+//            arr[y][x] = arr[newY][newX];
+//            arr[newY][newX] = currentC;
+//
+//
+//            // 현재 변경한 좌표(y,x)에서 상,하,좌,우로 같은 색의 좌표를 계속해서 찾는다.
+//            for (int j = 0; j < 4; j++) {
+//                int moveY = y + dy[j];
+//                int moveX = x + dx[j];
+//
+//                if (inRange(moveY, moveX) && arr[moveY][moveX] == arr[y][x]) {
+//                    dfs(moveY, moveX);
+//                }
+//
+//
+//            }
+
+
+        }
+
+        visited[y][x] = false;
+
+
+    }
+
+    public static boolean inRange(int y, int x) {
+        return y >= 1 && y <= n && x >= 1 && x <= n;
+    }
+
+>>>>>>> Stashed changes
 }
