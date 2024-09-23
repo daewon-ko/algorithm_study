@@ -1,14 +1,6 @@
 package level1;
 
 public class 덧칠하기 {
-    public static void main(String[] args) {
-        Solution solution = new Solution();
-        int n = 5;
-        int m = 4;
-        int[] section = {1,3};
-        System.out.println(solution.solution(n, m, section));
-
-    }
 
     /**
      * 1. n: 벽 전체의 길이 . 세로, 가로 구분은?
@@ -39,5 +31,28 @@ public class 덧칠하기 {
             return 0;
 
         }
+    }
+
+    class Solution_Re {
+        public int solution(int n, int m, int[] section) {
+            int start = section[0];
+            int end = section[0] + (m-1);
+            int answer = 1;
+
+            for(int i : section){
+                if(i>=start && i<=end){
+                    continue;
+                }
+                else{
+                    start = i;
+                    end = i + (m-1);
+                    answer++;
+                }
+            }
+
+            return answer;
+        }
+
+
     }
 }
