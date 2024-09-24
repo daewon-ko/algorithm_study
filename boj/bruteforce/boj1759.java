@@ -97,3 +97,54 @@ public class boj1759 {
 
     }
 }
+
+
+// StringBuilder를 통해 공간복잡도 줄이고, 기타 코드 간결화
+class boj1759Re{
+    static final int min_vowel = 1;
+    static final int min_consonant = 2;
+    static int l,c;
+    static List<String> input = new ArrayList<>();
+    static Set<Character> vowels = new HashSet<>(Arrays.asList('a', 'e', 'i', 'o', 'u'));
+    static StringBuilder output = new StringBuilder();  // StringBuilder 사용
+
+    public static void main(String[] args) throws IOException{
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        l = Integer.parseInt(st.nextToken());
+        c = Integer.parseInt(st.nextToken());
+
+        st = new StringTokenizer(br.readLine());
+        for (int i = 0; i < c; i++) {
+            input.add(st.nextToken());
+        }
+
+        Collections.sort(input);  // 입력값을 미리 정렬
+        func(0, 0, 0, 0);  // 모음과 자음의 개수를 함께 전달
+
+    }
+
+    public static void func(int start, int depth, int vowelCnt, int consonatCnt) {
+        if (depth == l) {
+            if (vowelCnt >= min_consonant && consonatCnt >= min_consonant) {
+                System.out.println(output.toString());
+            }
+            return;
+        }
+
+        for (int i = start; i < c; i++) {
+            char ch = input.get(i).charAt(0);
+            output.append(ch);
+
+            if (vowels.contains(ch)) {
+                func(i + 1, depth + 1, vowelCnt + 1, consonatCnt);
+            }else{
+                func(i + 1, depth + 1, vowelCnt, consonatCnt + 1);
+            }
+
+            output.deleteCharAt(output.length() - 1);
+
+        }
+    }
+
+}
