@@ -85,7 +85,6 @@ public class boj18290 {
 
 class boj18290_re{
 
-    public class Main {
         static int n, m, k;
         static int[][] arr;
         static boolean[][] visited;
@@ -149,4 +148,4 @@ class boj18290_re{
         }
     }
 
-}
+
