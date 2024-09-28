@@ -6,9 +6,77 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class boj14889 {
+    static int n;
+    static int[][] map;
+    static boolean[] visited;
+    static int MIN = Integer.MAX_VALUE;
+
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        n = Integer.parseInt(br.readLine());
+        map = new int[n][n];
+        visited = new boolean[n];
+        for (int i = 0; i < n; i++) {
+            StringTokenizer st = new StringTokenizer(br.readLine());
+            for (int j = 0; j < n; j++) {
+                map[i][j] = Integer.parseInt(st.nextToken());
+            }
+        }
+
+        findMin(0, 0);
+
+        System.out.println(MIN);
+    }
+
+    private static void findMin(int start, int depth) {
+        if (depth == n / 2) {
+            int start_team = 0;
+            int link_team = 0;
+
+            for (int i = 0; i < n - 1; i++) {
+                for (int j = i + 1; j < n; j++) {
+
+                    if (visited[i] == true && visited[j] == true) {
+                        start_team += map[i][j];
+                        start_team += map[j][i];
+                    } else if (visited[i] == false && visited[j] == false) {
+                        link_team += map[i][j];
+                        link_team += map[j][i];
+                    }
+                }
+
+            }
+
+
+                int diff = Math.abs(start_team - link_team);
+
+                if (diff == 0) {
+                    System.out.println(diff);
+                    System.exit(0);
+                }
+
+                MIN = Math.min(MIN, diff);
+
+
+
+
+            return;
+        }
+
+
+        for (int i = start; i < n; i++) {
+            if (!visited[i]) {
+                visited[i] = true;
+                findMin(i + 1, depth + 1);
+                visited[i] = false;
+            }
+        }
+    }
+
+
 }
 
-class boj14889_Re{
+class boj14889_Re {
     static int N;
     static int[][] map;
     static boolean[] visit;
@@ -40,7 +108,7 @@ class boj14889_Re{
     // idx는 인덱스, count는 조합 개수(=재귀 깊이)
     static void combi(int idx, int count) {
         // 팀 조합이 완성될 경우
-        if(count == N / 2) {
+        if (count == N / 2) {
 			/*
 			 방문한 팀과 방문하지 않은 팀을 각각 나누어
 			 각 팀의 점수를 구한 뒤 최솟값을 찾는다.
@@ -49,12 +117,12 @@ class boj14889_Re{
             return;
         }
 
-        for(int i = idx; i < N; i++) {
+        for (int i = idx; i < N; i++) {
             // 방문하지 않았다면?
-            if(!visit[i]) {
-                visit[i] = true;	// 방문으로 변경
-                combi(i + 1, count + 1);	// 재귀 호출
-                visit[i] = false;	// 재귀가 끝나면 비방문으로 변경
+            if (!visit[i]) {
+                visit[i] = true;    // 방문으로 변경
+                combi(i + 1, count + 1);    // 재귀 호출
+                visit[i] = false;    // 재귀가 끝나면 비방문으로 변경
             }
         }
     }
