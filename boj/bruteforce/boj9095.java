@@ -1,6 +1,10 @@
 package boj.bruteforce;
 
 import java.io.*;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 백준 9095 1,2,3 더하기
@@ -33,3 +37,42 @@ public class boj9095 {
 
     }
 }
+
+
+class boj9095_bruteForce {
+    static int n, t;
+    static int cnt;
+    static Map<Integer, Integer> numbers;
+
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        t = Integer.parseInt(br.readLine());
+
+        for (int i = 0; i < t; i++) {
+            n = Integer.parseInt(br.readLine());
+            cnt = 0;
+            bruteForce(0);
+
+            System.out.println(cnt);
+
+        }
+
+
+    }
+
+    public static void bruteForce(int sum) {
+        if (sum == n) {
+            cnt++;
+            return;
+        } else if (sum > n) {
+            return;
+        }
+        else {
+            for (int i = 1; i <= 3; i++) {
+                bruteForce(sum + i);
+            }
+        }
+    }
+    }
+
+
