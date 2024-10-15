@@ -56,14 +56,10 @@ public class boj10972 {
         }
 
 
-<<<<<<< Updated upstream
-        for (int i = start; i <= n; i++) {
-            if (!visited[i]) {
-=======
+
         for (int i = start; i <=n; i++) {
 
             if(!visited[i]){
->>>>>>> Stashed changes
                 visited[i] = true;
                 after.add(i);
                 func(depth + 1, start);
