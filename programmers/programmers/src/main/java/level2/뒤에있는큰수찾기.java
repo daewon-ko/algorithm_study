@@ -41,3 +41,36 @@ public class 뒤에있는큰수찾기 {
         return answer;
     }
 }
+
+class 뒤에있는큰수찾기Re{
+    static int n;
+    static boolean [] visited;
+    static int [] result;
+    public int solution(int[] numbers) {
+        n = numbers.length;
+        int start = 0;
+        visited = new boolean[n];
+        result = new int[n];
+
+
+        backtracking(start, numbers);
+    }
+
+    public void backtracking(int depth, int [] numbers) {
+        int max = Integer.MIN_VALUE;
+
+        if (depth == n) {
+
+            return;
+        }
+
+        for (int i = depth; i < n; i++) {
+            if(!visited[i]) {
+                visited[i] = true;
+                max = Math.max(max, result[i]);
+//                backtracking(i + 1, numbers);
+            }
+
+        }
+    }
+}
