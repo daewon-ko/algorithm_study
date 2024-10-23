@@ -1,6 +1,7 @@
 package programmers.programmers.src.main.java.level2;
 
 import java.util.Arrays;
+import java.util.Stack;
 
 public class 뒤에있는큰수찾기 {
 
@@ -40,4 +41,64 @@ public class 뒤에있는큰수찾기 {
 
         return answer;
     }
+}
+
+class 뒤에있는큰수찾기Re{
+//    static int n;
+//    static boolean [] visited;
+//    static int [] result;
+//    public int solution(int[] numbers) {
+//        n = numbers.length;
+//        int start = 0;
+//        visited = new boolean[n];
+//        result = new int[n];
+//
+//
+//        backtracking(start, numbers);
+//
+//        return answer;
+//    }
+//
+//    public void backtracking(int depth, int [] numbers) {
+//        int max = Integer.MIN_VALUE;
+//
+//        if (depth == n) {
+//
+//            return;
+//        }
+//
+//        for (int i = depth; i < n; i++) {
+//            if(!visited[i]) {
+//                visited[i] = true;
+//                max = Math.max(max, result[i]);
+////                backtracking(i + 1, numbers);
+//            }
+//
+//        }
+//    }
+}
+
+class 뒤에있는큰수찾기Ref{
+    public int [] solution(int[] numbers) {
+        int n = numbers.length;
+        Stack<Integer> stack = new Stack<>();
+        int answer[] = new int[n];
+
+
+        stack.push(0);
+
+        for (int i = 1; i < numbers.length; i++) {
+
+            while(!stack.isEmpty() && numbers[stack.peek()] < numbers[i]){
+                answer[stack.pop()] = numbers[i];
+            }
+            stack.push(i);
+        }
+
+        while (!stack.isEmpty()){
+            answer[stack.pop()] = -1;
+        }
+        return answer;
+    }
+
 }
