@@ -7,13 +7,14 @@ import java.util.Map;
 public class 연속된부분수열의합 {
     static Map<Integer, Integer> map = new HashMap<>();
     static int MIN = Integer.MAX_VALUE;
+
     public int[] solution(int[] sequence, int k) {
 
         int[] answer = new int[2];
         int j = sequence.length - 1;
         int i = 0;
 
-        while (i !=j) {
+        while (i != j) {
             func(i++, j--, sequence, k);
         }
         // 같아지는 순간이 옴
@@ -31,9 +32,6 @@ public class 연속된부분수열의합 {
         }
 
 
-
-
-
         for (Integer value : map.values()) {
             MIN = Math.min(value, MIN);
         }
@@ -43,7 +41,6 @@ public class 연속된부분수열의합 {
         for (Integer key : map.keySet()) {
             minKey = Math.min(key, minKey);
         }
-
 
 
         for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
@@ -76,5 +73,41 @@ public class 연속된부분수열의합 {
     }
 
 
+}
 
+
+class 연속된부분수열의합Re {
+    public int[] solution(int[] sequence, int k) {
+        int[] answer = new int[2];
+        int i = 0;
+        int j = 0;
+        int sum = 0;
+        int min = Integer.MAX_VALUE;
+
+        while (j < sequence.length) {
+
+            sum+=sequence[j];
+
+            while (sum > k && i <= j) {
+                sum -= sequence[i];
+                i++;
+            }
+
+            if (sum == k) {
+                int currentLength = j - i + 1;
+                if (min > currentLength) {
+                    min = currentLength;
+                    answer[0] = i;
+                    answer[1] = j;
+                }
+            }
+
+            j++;
+
+        }
+
+
+        return answer;
+
+    }
 }
