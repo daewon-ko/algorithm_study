@@ -46,23 +46,28 @@ public class boj15663 {
     public static void func(int depth, StringBuilder numberBase) {
         if (depth == m) {
 
+
             set.add(numberBase.toString());
 
             return;
 
         }
 
+        int prevNum = -1; // 이전 숫자를 저장할 변수
 
         for (int i = 0; i < arr.length; i++) {
-            if (!visited[i]) {
+            if (!visited[i] && arr[i] != prevNum) {
+
                 visited[i] = true;
                 String number = String.valueOf(arr[i]);
                 numberBase.append(number);
                 func(depth + 1, numberBase);
                 numberBase.deleteCharAt(numberBase.length() - 1);
                 visited[i] = false;
+                prevNum = arr[i]; // 이전 숫자를 저장할 변수
             }
         }
 
     }
 }
+
