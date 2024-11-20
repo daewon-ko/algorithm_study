@@ -82,32 +82,47 @@ public class boj15662 {
         }
         
     }
-    
-    
-    public static void rotate(int[] saw, int direction) {
-        
-        // direction이 1일때 -> 배열을 시계 방향으로 회전한다.
+
+    public static void rotate(int[] arr, int direction) {
         if (direction == clockWise) {
-            int temp = saw[7];
-            
-            for (int i = 0; i < 7; i++) {
-                saw[i + 1] = saw[i];
-            }
-            
-            saw[0] = temp;
-
-        } else if (direction == reverseClockWise) {
-            int temp = saw[0];
-
+            int temp = arr[7];
             for (int i = 7; i > 0; i--) {
-                saw[i-1] = saw[i];
+                arr[i] = arr[i - 1];
             }
-            saw[7] = temp;
+            arr[0] = temp;
+        } else if (direction == reverseClockWise) {
+            int temp = arr[0];
+            for (int i = 0; i < 7; i++) {
+                arr[i] = arr[i + 1];
+            }
+            arr[7] = temp;
         }
-        
-        // direction이 -1일때 
-        
     }
+
+//    public static void rotate(int[] saw, int direction) {
+//
+//        // direction이 1일때 -> 배열을 시계 방향으로 회전한다.
+//        if (direction == clockWise) {
+//            int temp = saw[7];
+//
+//            for (int i = 0; i < 7; i++) {
+//                saw[i + 1] = saw[i];
+//            }
+//
+//            saw[0] = temp;
+//
+//        } else if (direction == reverseClockWise) {
+//            int temp = saw[0];
+//
+//            for (int i = 7; i > 0; i--) {
+//                saw[i-1] = saw[i];
+//            }
+//            saw[7] = temp;
+//        }
+//
+//        // direction이 -1일때
+//
+//    }
 
     public static void countS() {
         for (int i = 0; i < t; i++) {
