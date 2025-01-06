@@ -4,9 +4,7 @@ package boj.구현;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.StringTokenizer;
+import java.util.*;
 
 
 //트럭
@@ -115,6 +113,72 @@ public class boj13335 {
         public int getTime() {
             return time;
         }
+    }
+}
+
+
+class boj13335Ref{
+    static int w;
+    static int n;
+    static int l;
+
+    static int [] trucks;
+
+
+    public static void main(String[] args) throws IOException{
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        n = Integer.parseInt(st.nextToken());
+        w = Integer.parseInt(st.nextToken());
+        l = Integer.parseInt(st.nextToken());
+
+        trucks = new int[n];
+
+        st = new StringTokenizer(br.readLine());
+        for (int i = 0; i < n; i++) {
+            trucks[i] = Integer.parseInt(st.nextToken());
+        }
+
+
+        solve(trucks);
+
+
+
+
+    }
+
+    public static int solve(int[] trucks) {
+        // queue에 들어가는 것은 기본적으로 0 이지만,
+        // 특정 트럭이 올라가면, 트럭의 무게로 표현된다.
+        // 트럭에 관한 정보는 트럭의 무게만 존재하기에.
+        Queue<Integer> queue = new LinkedList();
+        int index = 0;
+        int time = 0;
+        int weight = 0;
+
+        for (int i = 0; i < w; i++) {
+            queue.add(0);
+        }
+
+        // 다리를 아직 지나지 않은 트럭이 있거나 다리 위에 트럭이 있으면 반복문을 계속 수행한다.
+        while (index < trucks.length ||weight > 0) {
+            // 1시간 지나서 가장 먼저 queue에 들어간 것을 꺼낸다.
+            // 그것은 0이될수도 혹은 다리 위에 트럭이 될 수도 있다.
+            time++;
+            weight-=queue.poll();
+
+            if (index < trucks.length && weight + trucks[index] <= l) {
+                weight += trucks[index];
+                queue.add(trucks[index]);
+                index++;
+
+            }else{
+                queue.add(0);
+            }
+
+        }
+
+        return time;
     }
 }
 
