@@ -90,7 +90,6 @@ class bo1018Re{
 
 
 
-    public class Main {
         static int n, m;
         static char[][] graph;
         static int MAX = 50 + 10;
@@ -163,5 +162,5 @@ class bo1018Re{
     }
 
     // 백준 체스판 다시 칠하기
-}
+
 
