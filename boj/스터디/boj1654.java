@@ -34,6 +34,7 @@ public class boj1654 {
         System.out.println(min);
 
     }
+
     public static void solve() {
         // 초기 cnt 0으로 초기화
 
@@ -56,6 +57,63 @@ public class boj1654 {
             }
 
             min--;
+
+        }
+    }
+}
+
+class boj1654Retry {
+    static int n, k;
+    static int max;
+    static int min = 1;
+    static int mid;
+    static List<Integer> list = new ArrayList<>();
+
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+
+        k = Integer.parseInt(st.nextToken());
+        n = Integer.parseInt(st.nextToken());
+
+        max = Integer.MIN_VALUE;
+        for (int i = 0; i < k; i++) {
+            int line = Integer.parseInt(br.readLine());
+            if (max <= line) {
+                max = line;
+            }
+            list.add(line);
+
+        }
+
+        min = 1;
+        mid = (max + min) / 2;
+
+        solve();
+
+        System.out.println(mid);
+    }
+    public static void solve() {
+
+
+        while (true) {
+            int cnt = 0;
+            for (int i = 0; i < list.size(); i++) {
+                int line = list.get(i);
+                cnt += line / mid;
+            }
+
+            if (cnt > n) {
+                min = mid + 1;
+                mid = (max + min) / 2;
+
+            } else if (cnt == n) {
+                break;
+            } else {
+                max = mid - 1;
+                mid = (max + min) / 2;
+            }
+
 
         }
     }
