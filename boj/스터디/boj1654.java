@@ -118,3 +118,48 @@ class boj1654Retry {
         }
     }
 }
+
+
+class boj1654Ref{
+    static int n, k;
+    static List<Integer> list = new ArrayList<>();
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+
+        k = Integer.parseInt(st.nextToken());
+        n = Integer.parseInt(st.nextToken());
+
+        int max = 0; // 가장 긴 랜선의 길이
+        for (int i = 0; i < k; i++) {
+            int line = Integer.parseInt(br.readLine());
+            max = Math.max(max, line); // 최대값 갱신
+            list.add(line);
+        }
+
+        solve(1, max);
+
+
+    }
+
+    public static long solve(long min, long max) {
+        long result = 0;
+
+        while (min <= max) {
+            long mid = (min + max) / 2;
+            long cnt = 0;
+
+            for (int line : list) {
+                cnt+=line / mid;
+            }
+            if (cnt >= n) {
+                min = mid + 1;
+                result = mid;
+            }else{
+                max = mid - 1;
+            }
+        }
+
+        return result;
+    }
+}
